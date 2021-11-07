@@ -1070,7 +1070,11 @@
             curlPlaneDir.normalize();
             var circulation = curlPlaneDir.x * totalCurl.i + curlPlaneDir.y*totalCurl.j + curlPlaneDir.z*totalCurl.k;
 
+<<<<<<< Updated upstream
             document.getElementById("show-curl").value=circulation.toFixed(2);
+=======
+            document.getElementById("show-curl").value=circulation.toFixed(4);
+>>>>>>> Stashed changes
             circulation = circulation*(planelength/vR_factor)*(planelength/vR_factor)
             document.getElementById("show-circulation").value=circulation.toFixed(2);
             
