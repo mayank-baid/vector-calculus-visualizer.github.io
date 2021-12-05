@@ -135,6 +135,7 @@
         var SEPARATION = 200, AMOUNTX = 10, AMOUNTY = 10;
 		var camera, scene, renderer, controls;
         
+        
        
         // Scence children	
         var unit_phi_vector, unit_R_vector, unit_Theta_vector;
@@ -300,9 +301,11 @@
             xScene.position.set(0,-5,150);
             xScene.rotation.set(0,Math.PI/2,0)
             scene.add(xScene);
+            
 
             yScene.position.set(150,-5,0);
             scene.add(yScene);
+            
 
             zScene.position.set(-5,150,0);
             scene.add(zScene);
@@ -551,7 +554,9 @@
             plotConstValuePlanes();
         }
         var cvPlane0, cvPlane1,cvPlane2,cvPlane3;
+        var plane1Scene, plane2Scene, plane3Scene;
         var GradientLine;
+        var planeFont = new THREE.Font(jsonTxt);
         function clearGradientField(){
             if(GradientLine!=null){
                 scene.remove(GradientLine);
@@ -565,6 +570,17 @@
             if(cvPlane3!=null){
                 scene.remove(cvPlane3);
             }
+
+            if (plane1Scene != null ){
+               
+               scene.remove(plane1Scene);
+            }
+            if (plane2Scene != null){
+                scene.remove(plane2Scene);
+            }
+            if (plane3Scene != null){
+                scene.remove(plane3Scene);
+            }
         }
         function plotConstValuePlanes(){
             if(GradientLine!=null){
@@ -575,9 +591,12 @@
                                                                   gradientField.y+"j  +"+
                                                                   gradientField.z+"k ";
 
-            document.getElementById("gradient-magnitude-of-field").value = Math.sqrt(gradientField.x*gradientField.x+
-                                                                                      gradientField.y*gradientField.y+
-                                                                                       gradientField.z*gradientField.z )
+            
+            var gradientMag = Math.sqrt(gradientField.x*gradientField.x + 
+                                        gradientField.y*gradientField.y + 
+                                        gradientField.z*gradientField.z )
+
+            document.getElementById("gradient-magnitude-of-field").value = gradientMag;
             
             // var dir = new THREE.Vector3(gradientField.x,gradientField.y,gradientField.z);
             var dir = new THREE.Vector3(gradientField.y,gradientField.z,gradientField.x);
@@ -590,36 +609,8 @@
             
 
 
-            // var centroid1 = new THREE.Vector3(50,50,50);
-            // var plane1 = new THREE.Plane();
-            // plane1.setFromNormalAndCoplanarPoint(dir, centroid1).normalize();
-
-            // // Create a basic rectangle geometry
-            // var planeGeometry1 = new THREE.PlaneGeometry(100, 100);
-
-            // // Align the geometry to the plane
-            // var coplanarPoint1 = plane1.coplanarPoint();
-            // var focalPoint1 = new THREE.Vector3().copy(coplanarPoint1).add(plane1.normal);
-            // planeGeometry1.lookAt(focalPoint1);
-            // // planeGeometry1.position.set()
-            // planeGeometry1.translate(coplanarPoint1.y, coplanarPoint1.z, coplanarPoint1.x);
-
-            // // Create mesh with the geometry
-            // var planeMaterial = new THREE.MeshPhongMaterial({color: 0xbb9155, side: THREE.DoubleSide});
-            // var cvPlane1 = new THREE.Mesh(planeGeometry1, planeMaterial);
-            // scene.add(cvPlane1);
-            /*if(cvPlane0!=null){
-                scene.remove(cvPlane0);
-            }
-            var distance0=new THREE.Vector3(0,0,0);
-            var planeGeometry0=new THREE.PlaneGeometry(100,100);
-            var planeMaterial0 = new THREE.MeshPhongMaterial({color: 0xbb9199, side: THREE.DoubleSide,opacity: 0.9,transparent: true});
-            cvPlane0 = new THREE.Mesh( planeGeometry0, planeMaterial0 );
-            cvPlane0.position.set(dir.x*distance0.x,dir.y*distance0.y,dir.z*distance0.z);
-            cvPlane0.lookAt(0,0,0);
-            scene.add(cvPlane0);
-            */
             if(cvPlane1!=null){
+
                 scene.remove(cvPlane1);
             }
 
@@ -631,26 +622,6 @@
             cvPlane1.lookAt(0,0,0);
             scene.add(cvPlane1);
 
-            
-            /////////////////////////////////////////////////////////////////////////////////
-
-            // var centroid2 = new THREE.Vector3(100,100,100);
-            // var plane2 = new THREE.Plane();
-            // plane2.setFromNormalAndCoplanarPoint(dir, centroid2).normalize();
-
-            // // Create a basic rectangle geometry
-            // var planeGeometry2 = new THREE.PlaneGeometry(100, 100);
-
-            // // Align the geometry to the plane
-            // var coplanarPoint2 = plane2.coplanarPoint();
-            // var focalPoint2 = new THREE.Vector3().copy(coplanarPoint2).add(plane2.normal);
-            // planeGeometry2.lookAt(focalPoint2);
-            // planeGeometry2.translate(coplanarPoint2.y, coplanarPoint2.z, coplanarPoint2.x);
-
-            // // Create mesh with the geometry
-            // var planeMaterial = new THREE.MeshPhongMaterial({color: 0xbb9199, side: THREE.DoubleSide});
-            // var cvPlane2 = new THREE.Mesh(planeGeometry2, planeMaterial);
-            // scene.add(cvPlane2);
 
             if(cvPlane2!=null){
                 scene.remove(cvPlane2);
@@ -664,25 +635,7 @@
             cvPlane2.lookAt(0,0,0);
             scene.add(cvPlane2);
 
-            /////////////////////////////////////////////////////////////////////////////////
 
-            // var centroid3 = new THREE.Vector3(150,150,150);
-            // var plane3 = new THREE.Plane();
-            // plane3.setFromNormalAndCoplanarPoint(dir, centroid3).normalize();
-
-            // // Create a basic rectangle geometry
-            // var planeGeometry3 = new THREE.PlaneGeometry(100, 100);
-
-            // // Align the geometry to the plane
-            // var coplanarPoint3 = plane3.coplanarPoint();
-            // var focalPoint3 = new THREE.Vector3().copy(coplanarPoint3).add(plane3.normal);
-            // planeGeometry3.lookAt(focalPoint3);
-            // planeGeometry3.translate(coplanarPoint3.y, coplanarPoint3.z, coplanarPoint3.x);
-
-            // // Create mesh with the geometry
-            // var planeMaterial = new THREE.MeshPhongMaterial({color: 0xbb91ff, side: THREE.DoubleSide});
-            // var cvPlane3 = new THREE.Mesh(planeGeometry3, planeMaterial);
-            // scene.add(cvPlane3);
 
             if(cvPlane3!=null){
                 scene.remove(cvPlane3);
@@ -697,17 +650,105 @@
             scene.add(cvPlane3);
 
 
+            var textdist = 50;
+            if (plane1Scene != null ){
+               
+                scene.remove(plane1Scene);
+            }
+
+            
+            var plane1Geometry = new THREE.TextGeometry("V = " + gradientField.z, {
+                font: planeFont,
+                size: 10,
+                height: 1
+            });
+
+            
+            var plane1Material = new THREE.MeshBasicMaterial({ color: 0xbb9111 });
+            plane1Scene = new THREE.Mesh(plane1Geometry, plane1Material);
+            plane1Scene.position.set(dir.x*distance1.x,dir.y*distance1.y,dir.z*distance1.z);
+            scene.add(plane1Scene);
+            
+            
+            if (plane2Scene != null){
+                scene.remove(plane2Scene);
+            }
+            
+            var plane2Geometry = new THREE.TextGeometry("V = " + gradientField.y, {
+                font: planeFont,
+                size: 10,
+                height: 1
+            });
+            var plane2Material = new THREE.MeshBasicMaterial({ color: 0xbb9177 });
+            plane2Scene = new THREE.Mesh(plane2Geometry, plane2Material);
+            plane2Scene.position.set(dir.x*distance2.x,dir.y*distance2.y,dir.z*distance2.z);
+            
+            scene.add(plane2Scene);
+        
+            if (plane3Scene != null){
+                scene.remove(plane3Scene);
+            }
+            // console.log(dir);
+            // var classifier;
+            // if (dir.x)
+            // {
+            //     classifier = new THREE.Vector3(0,0,10);
+            //     console.log(classifier)
+            //     if(dir.y){
+            //         classifier = new THREE.Vector3(10,0,10);
+            //         console.log(classifier)
+            //     }
+
+            //     if (dir.z)
+            //     {
+            //         classifier = new THREE.Vector3(10,10,10);
+            //         console.log(classifier)
+            //     }
+                
+            // }
+            // else if (dir.y)
+            // {
+            //     classifier = new THREE.Vector3(10,0,0);
+            //     console.log(classifier)
+            //     if (dir.z)
+            //     {
+            //         classifier = new THREE.Vector3(10,10,0);
+            //         console.log(classifier)
+            //     }
+                
+            // }
+            // else{
+            //     classifier = new THREE.Vector3(10,0,0);
+            //     console.log(classifier)
+            // }
+
+            
+            var plane3Geometry = new THREE.TextGeometry("V = " + gradientField.x, {
+                font: planeFont,
+                size: 10,
+                height: 1
+            });
+            var plane3Material = new THREE.MeshBasicMaterial({ color: 0xbb91ff });
+            plane3Scene = new THREE.Mesh(plane3Geometry, plane3Material);
+            plane3Scene.position.set(dir.x*distance3.x , dir.y*distance3.y,dir.z*distance3.z );
+            // plane3Scene.rotation.set(dir.x*distance3.x, dir.y*distance3.y ,dir.z*distance3.z);
+            scene.add(plane3Scene);
 
         }
 
         var gradientArrow;
         var stoprotatingA = false;
 
+        var mag;
+        var vecx;
+        var vecy;
+        var vecz;
+
         function calculateAndShowGradient(){
 
-            var vecx=document.getElementById("grad-x-vec").value;
-            var vecy=document.getElementById("grad-y-vec").value;
-            var vecz=document.getElementById("grad-z-vec").value;
+            vecx=document.getElementById("grad-x-vec").value;
+            vecy=document.getElementById("grad-y-vec").value;
+            vecz=document.getElementById("grad-z-vec").value;
 
             if(vecx==""){
                 vecx=0;
@@ -723,7 +764,7 @@
             }
 
 
-            var mag=Math.sqrt(vecx*vecx+vecy*vecy+vecz*vecz);
+            mag = Math.sqrt(vecx*vecx+vecy*vecy+vecz*vecz);
 
 
             var ans=(gradientField.x*vecx + gradientField.y*vecy + gradientField.z*vecz )/mag;
@@ -757,7 +798,7 @@
             stoprotatingA = false;
             const myAxis = new THREE.Vector3(1, 1, 0);
             gradientArrow.rotateOnWorldAxis(myAxis, 0);
-            gradientArrow.rotation.z += 0.008;
+            gradientArrow.rotation.x += 0.008;
             function animate() {
                 if(stoprotatingA == true ){
                 return;
@@ -765,6 +806,23 @@
                 gradientArrow.rotation.z += 0.008;
                 requestAnimationFrame(animate);
                 renderer.render(scene, camera);
+
+                // Update Rate of change along A
+
+                // if (mag)
+                // {
+                //     var x = gradientArrow.quaternion.x;
+                //     var y = gradientArrow.quaternion.y;
+                //     var z = gradientArrow.quaternion.z;
+                //     var ans=(gradientField.x*x + gradientField.y*y + gradientField.z*z )/mag;
+
+                //     document.getElementById("gradient_along_given_direction").value = ans;  
+                // }
+                // else{
+                //     return;
+                // }
+
+
             }
             animate();
         }
@@ -1611,14 +1669,7 @@
                                     <tr>
                                         <td class="cSub_td cParameter" style="width:1000px;">
                                             <b>Specify a vector to view the rate of change along it</b>
-                                            <div>
-                                                <button onclick="rotateA()">Rotate</button>
-                                            </div>
-                                            <div>
-                                                <button onclick="stoprotationA()">Rotate</button>
-                                            </div>
-    
-                                        
+
                                             <div>
                                                 <b>A</b>=
                                                 <input id="grad-x-vec" class="cons-input" type="number" step=0.1><b> i</b>+
@@ -1632,6 +1683,11 @@
                                                         <i>Rate of change along </i> <b>A</b> = 
                                                 <input type="number" id="gradient_along_given_direction" readonly>
                                                     </div>
+                                                <div style="margin-left: 5%;">
+                                                    <button onclick="rotateA()" style=" width: 100px;">Rotate A</button>
+                                                    <button onclick="stoprotationA()" style="margin-left: 5%; width: 100px;">Stop Rotating</button>
+                                                </div>
+                                                
                                                 
                                             </div>
                                             
