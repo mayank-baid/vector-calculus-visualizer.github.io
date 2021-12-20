@@ -1683,10 +1683,16 @@
                                                         <i>Rate of change along </i> <b>A</b> = 
                                                 <input type="number" id="gradient_along_given_direction" readonly>
                                                     </div>
-                                                <div style="margin-left: 5%;">
-                                                    <button onclick="rotateA()" style=" width: 100px;">Rotate A</button>
-                                                    <button onclick="stoprotationA()" style="margin-left: 5%; width: 100px;">Stop Rotating</button>
-                                                </div>
+                                                    <div class="slidecontainer" name="xy-rotation-button">
+                                                        Rotate A about: <br>
+                                                        x-axis <input id = "rotation-x" type="range" min="0" max="360" class="slider" onclick="" value="0"> <br>
+                                                        y-axis <input id = "rotation-y" type="range" min="0" max="360" class="slider" onclick="" value="0">
+                                                        
+                                                        
+                                                        <span style="margin-left: 13%; margin-right: 67%; ">0</span>
+                                                        <span>2&Pi;</span>
+                                                            
+                                                    </div>
                                                 
                                                 
                                             </div>
